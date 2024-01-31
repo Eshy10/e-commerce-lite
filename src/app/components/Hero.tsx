@@ -6,7 +6,7 @@ import Button from "./CustomButton";
 
 const Hero = () => {
   const handleScroll = () => {
-    const nextSection = document.getElementById("discover");
+    const nextSection = document.getElementById("clothing");
 
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: "smooth" });
@@ -14,19 +14,19 @@ const Hero = () => {
   };
 
   return (
-    <div className="hero">
-      <div className="flex-1 pt-36 padding-x">
+    <div className="flex flex-col lg:flex hero w-full">
+      <div className="flex-1 padding-x">
         <h1 className="hero__title">
-          Shop all type of wine
+          Shop Affordable wears here
         </h1>
 
         <p className="hero__subtitle">
-         Get the best of all wines here!!
+         Get the best of all prices here!!
         </p>
 
         <Button
-          title="Find Drinks"
-          containerStyles="bg-primary-blue text-white rounded-full mt-10"
+          title="Shop Now"
+          containerStyles="bg-[#333333] text-white rounded-full mt-10"
           handleClick={handleScroll}
         />
       </div>

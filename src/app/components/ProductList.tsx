@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { useGetAllProductQuery } from "@/lib/services/product";
 import { setProducts } from "@/lib/features/products";
 import { ProductCard, Searchbar, FilterSection } from ".";
 import { Product } from "@/types";
@@ -10,7 +9,6 @@ import { fetchData } from "@/lib/endpoint";
 
 
 const ProductList = () => {
-  const { data } = useGetAllProductQuery();
   const products = useAppSelector((state) => state.productReducer.products);
   const dispatch = useAppDispatch();
 
@@ -21,17 +19,18 @@ const ProductList = () => {
 
 
   return (
-    <div>
-      <div className="w-full flex justify-between">
+    <div className="w-full mt-[5rem] lg:mt-[20rem]">
+      <h2 className="text-gray-900 mb-20 text-center text-[20px] font-bold">Products</h2>
+      <div className="w-full flex flex-col lg:flex justify-between">
         <Searchbar />
         <FilterSection />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-20">
         {products &&
           products.map((product: Product) => (
-              <ProductCard product={product} key={product.id}/>
+              <ProductCard product={product} key={product?.id}/>
           ))}
         </div>
-      </div>
     </div>
   );
 };

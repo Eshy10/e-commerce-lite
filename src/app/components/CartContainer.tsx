@@ -23,30 +23,31 @@ const CartContainer = () => {
   };
 
   return (
-    <div>
+    <div className="w-full mt-[5rem]">
+      <h2 className="text-gray-900 mb-20 text-center text-[20px] font-bold">Cart</h2>
       {cart && cart.length > 0 ? (
         cart.map((cartItem: CartProps) => (
-          <div key={cartItem.id}>
+          <div key={cartItem.id} className="border-b pb-4 mt-4">
             <Image
-              src={cartItem.image}
+              src={cartItem?.image}
               alt="hero"
-              fill
-              className="object-contain"
+              width={100} height={100}
+              className="object-contain mb-10"
             />
-            <p>{cartItem.title}</p>
-            <p>{cartItem.price}</p>
-            <p>{cartItem.quantity}</p>
+            <p className="text-gray-900 mb-4">Name: {cartItem?.title}</p>
+            <p className="text-gray-900 mb-4">Price: {cartItem?.price}</p>
+            <p className="text-gray-900 mb-4">Quantity: {cartItem?.quantity}</p>
             <div
-              className={`flex items-center w-full justify-between mt-1 relative text-center`}
+              className={`flex items-center w-full lg:w-[20%] justify-between mt-4 text-center`}
             >
               <button
-                className={`bg-green rounded text-white w-[32px] h-[32px] transition-[width] ease-out duration-300 absolut`}
-                onClick={() => removeCartItems(Number(cartItem.id))}
+                className={`bg-[#b3b0b0] rounded text-white w-[32px] h-[32px] cursor-pointer transition-[width] ease-out duration-300`}
+                onClick={() => removeCartItems(cartItem?.id)}
               >
                 -
               </button>
                 <button
-                  className={`bg-green rounded text-white w-[32px] h-[32px] transition-[width] ease-out duration-300 absolut`}
+                  className={`bg-[#b3b0b0] rounded text-white w-[32px] h-[32px] cursor-pointer transition-[width] ease-out duration-300`}
                   onClick={() => addCartItems(cartItem)}
                 >
                   +
