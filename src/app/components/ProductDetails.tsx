@@ -2,14 +2,30 @@
 
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
+import { addToCart, removeFromCart } from "@/lib/features/cart";
 import Image from "next/image";
 import Button from "./CustomButton";
+import { CartProps, Product } from "@/types";
 
-const ProductDetails = () => {
+interface ProductDetailsProps {
+  product: Product;
+}
+
+const ProductDetails = ({ product }: ProductDetailsProps) => {
   const [productQuantity, setProductQuantity] = useState(0);
 
-  const handleAddToCart = () => {
+  const cart = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
+
+  const addCartItems = (item: CartProps) => {
+    dispatch(addToCart(item));
     toast.success("Added to Cart");
+  };
+
+  const removeCartItems = (id: number) => {
+    dispatch(removeFromCart(id));
+    toast.success("Removed From Cart");
   };
 
   return (
@@ -18,26 +34,26 @@ const ProductDetails = () => {
       <div>
         <p>product description</p>
         <div>
-          {productQuantity > 0 ? (
+          {cart && cart?.length > 0 ? (
             <div
               className={`flex items-center w-full justify-between mt-1 relative text-center`}
             >
-              <Button
-                containerStyles={`bg-green rounded text-white w-[32px] h-[32px] transition-[width] ease-out duration-300 absolut`}
-                handleClick={() => {}}
-                title=""
-              />
-              -
+              <button
+                className={`bg-green rounded text-white w-[32px] h-[32px] transition-[width] ease-out duration-300 absolut`}
+                onClick={() => removeCartItems(Number(product.id))}
+              >
+                -
+              </button>
               <div className="flex justify-between items-center w-full">
                 <p className="text-center w-[40%] text-[#333333] ml-[27.5%]">
                   {productQuantity}
                 </p>
-                <Button
-                  containerStyles="bg-green rounded text-white w-[32px] h-[32px]"
-                  handleClick={() => {}}
-                  title=""
-                />
-                +
+                <button
+                  className={`bg-green rounded text-white w-[32px] h-[32px] transition-[width] ease-out duration-300 absolut`}
+                  onClick={() => addCartItems(product)}
+                >
+                  +
+                </button>
               </div>
             </div>
           ) : (
@@ -48,7 +64,7 @@ const ProductDetails = () => {
                 <Button
                   title="Add to Cart"
                   containerStyles={`break-keep overflow-hidden w-full min-h-[32px] max-h-[35px] bg-green`}
-                  handleClick={() => {}}
+                  handleClick={() => addCartItems(product)}
                 />
               </div>
             </div>

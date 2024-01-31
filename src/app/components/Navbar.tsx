@@ -1,9 +1,23 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useAppSelector } from "@/lib/hooks";
+import { CartProps } from "@/types";
+
+interface CartItems extends CartProps {
+  quantity: number;
+}
 
 const Navbar = () => {
-  const [cartSize, setCartSize] = useState(0);
+  const cart = useAppSelector((state) => state.cart);
+
+  const getCartTotal = (): number => {
+    return cart.reduce(
+      (accumulator: number, item: CartItems) =>
+        accumulator + item.quantity,
+      0
+    );
+  };
 
   return (
     <header className="w-full  absolute z-10">
@@ -14,15 +28,15 @@ const Navbar = () => {
 
         <div className="relative cursor-pointer">
           <Image
-            src={'/shopping-cart-icon.svg'}
+            src={"/shopping-cart-icon.svg"}
             alt="logo"
             width={118}
             height={18}
             className="object-contain"
           />
-          {cartSize !== 0 && (
+          {getCartTotal() !== 0 && (
             <span className="absolute bottom-3 left-3 text-white bg-[#efde22] inline-flex items-center justify-center w-5 h-5 rounded-full">
-              {cartSize}
+              {getCartTotal()}
             </span>
           )}
         </div>

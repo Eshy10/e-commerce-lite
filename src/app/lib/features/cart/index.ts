@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { CartProps } from '@/types';
 
-
+interface cartList extends CartProps {
+  quantity: number
+}
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: [] as CartProps[],
+  initialState: [] as cartList[],
   reducers: {
     addToCart: (state, action) => {
       const existingCartItems = state.find((item) => item.id === action.payload.id);

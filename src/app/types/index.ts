@@ -20,9 +20,10 @@ export interface Product {
   }
 
   export interface CartProps {
-    id: number,
-    image: string,
-    title: string,
-    amount: number,
-    quantity: number
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    amount: number;
+    image: string;
 }
