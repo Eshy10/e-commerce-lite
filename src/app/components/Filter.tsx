@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import {sortProducts } from "@/lib/features/products";

@@ -4,3 +4,6 @@ export {default as HeroSection} from './Hero';
 export {default as ProductCard} from './ProductCard';
 export {default as Searchbar} from './SearchBar';
 export {default as FilterSection} from './Filter';
+export {default as ProductList} from './ProductList';
+export {default as ProductDetails} from './ProductDetails';
+export {default as CartContainer} from './CartContainer';

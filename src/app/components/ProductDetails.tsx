@@ -6,19 +6,19 @@ import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { addToCart, removeFromCart } from "@/lib/features/cart";
 import Image from "next/image";
 import Button from "./CustomButton";
-import { CartProps, Product } from "@/types";
+import {  Product } from "@/types";
 
 interface ProductDetailsProps {
   product: Product;
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-  const [productQuantity, setProductQuantity] = useState(0);
+  
 
-  const cart = useAppSelector((state) => state.cart);
+  const cart = useAppSelector((state) => state.cartReducer.cart);
   const dispatch = useAppDispatch();
 
-  const addCartItems = (item: CartProps) => {
+  const addCartItems = (item: Product) => {
     dispatch(addToCart(item));
     toast.success("Added to Cart");
   };
@@ -30,7 +30,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
   return (
     <div>
-      <Image src="/wine-red.jpeg" alt="hero" fill className="object-contain" />
+      <Image src={product.image} alt="hero" width={100} height={100} className="object-contain" />
       <div>
         <p>product description</p>
         <div>
@@ -40,14 +40,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             >
               <button
                 className={`bg-green rounded text-white w-[32px] h-[32px] transition-[width] ease-out duration-300 absolut`}
-                onClick={() => removeCartItems(Number(product.id))}
+                onClick={() => removeCartItems(product.id)}
               >
                 -
               </button>
               <div className="flex justify-between items-center w-full">
-                <p className="text-center w-[40%] text-[#333333] ml-[27.5%]">
-                  {productQuantity}
-                </p>
                 <button
                   className={`bg-green rounded text-white w-[32px] h-[32px] transition-[width] ease-out duration-300 absolut`}
                   onClick={() => addCartItems(product)}

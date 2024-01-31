@@ -24,7 +24,7 @@ const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
 
 const SearchBar = () => {
   const [serchValue, setSearchValue] = useState("");
-  const products = useAppSelector((state) => state.products);
+  const products = useAppSelector((state) => state.productReducer.products);
   const dispatch = useAppDispatch();
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,7 +34,7 @@ const SearchBar = () => {
       return alert("Please provide some input");
     }
     const filteredProduct = products.filter((product: Product) =>
-      product.name.toLowerCase().includes(serchValue.toLowerCase())
+      product.title.toLowerCase().includes(serchValue.toLowerCase())
     );
     dispatch(setProducts(filteredProduct));
   };

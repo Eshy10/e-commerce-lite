@@ -6,28 +6,31 @@ import { useGetAllProductQuery } from "@/lib/services/product";
 import { setProducts } from "@/lib/features/products";
 import { ProductCard, Searchbar, FilterSection } from ".";
 import { Product } from "@/types";
-import Link from "next/link";
+import { fetchData } from "@/lib/endpoint";
+
 
 const ProductList = () => {
   const { data } = useGetAllProductQuery();
-  const products = useAppSelector((state) => state.products);
+  const products = useAppSelector((state) => state.productReducer.products);
   const dispatch = useAppDispatch();
 
+
   useEffect(() => {
-    dispatch(setProducts(data as Product[]));
+ fetchData(`https://fakestoreapi.com/products`).then(data => dispatch(setProducts(data)))
   }, [dispatch]);
+
 
   return (
     <div>
       <div className="w-full flex justify-between">
         <Searchbar />
         <FilterSection />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {products &&
           products.map((product: Product) => (
-            <Link key={product.id} href={`/producs/${product.name}`}>
-              <ProductCard product={product} />
-            </Link>
+              <ProductCard product={product} key={product.id}/>
           ))}
+        </div>
       </div>
     </div>
   );

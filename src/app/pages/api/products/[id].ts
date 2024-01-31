@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Product } from "@/types";
-import { products } from "../../data/products";
+import { products } from "../../../data/products";
 
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Product | { message: string }>) {

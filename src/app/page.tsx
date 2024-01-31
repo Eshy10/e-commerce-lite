@@ -1,10 +1,10 @@
-import { HeroSection, ProductCard, Searchbar, FilterSection } from "@/components";
+import { HeroSection, ProductList } from "@/components";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
      <HeroSection/>
-     
+     <ProductList/>
     </main>
   );
 }

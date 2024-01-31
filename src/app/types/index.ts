@@ -1,12 +1,18 @@
 import { MouseEventHandler } from "react";
 
+export interface Rating {
+    rate: number;
+    count: number;
+}
+
 export interface Product {
-    id: string;
-    name: string;
+    id: number;
+    title: string;
     description: string;
+    category: string;
     price: number;
-    amount: number;
     image: string;
+    rating: Rating
   };
 
   export interface CustomButtonProps {
@@ -19,11 +25,6 @@ export interface Product {
     handleClick?: MouseEventHandler<HTMLButtonElement>;
   }
 
-  export interface CartProps {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    amount: number;
-    image: string;
+  export interface CartProps extends Product {
+    quantity: number;
 }

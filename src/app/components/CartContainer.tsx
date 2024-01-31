@@ -6,12 +6,9 @@ import { useAppSelector,  useAppDispatch } from "@/lib/hooks";
 import { addToCart, removeFromCart } from "@/lib/features/cart";
 import { CartProps } from "@/types";
 
-interface CartItems extends CartProps {
-    quantity: number;
-  }
 
 const CartContainer = () => {
-  const cart = useAppSelector((state) => state.cart);
+  const cart = useAppSelector((state) => state.cartReducer.cart);
 
   const dispatch = useAppDispatch();
 
@@ -28,7 +25,7 @@ const CartContainer = () => {
   return (
     <div>
       {cart && cart.length > 0 ? (
-        cart.map((cartItem: CartItems) => (
+        cart.map((cartItem: CartProps) => (
           <div key={cartItem.id}>
             <Image
               src={cartItem.image}
@@ -36,7 +33,7 @@ const CartContainer = () => {
               fill
               className="object-contain"
             />
-            <p>{cartItem.name}</p>
+            <p>{cartItem.title}</p>
             <p>{cartItem.price}</p>
             <p>{cartItem.quantity}</p>
             <div
