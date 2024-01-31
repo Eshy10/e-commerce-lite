@@ -21,7 +21,7 @@ const ProductList = () => {
   return (
     <div className="w-full mt-[5rem] lg:mt-[20rem]">
       <h2 className="text-gray-900 mb-20 text-center text-[20px] font-bold">Products</h2>
-      <div className="w-full flex flex-col lg:flex justify-between">
+      <div className="w-full flex flex-col lg:flex-row justify-between">
         <Searchbar />
         <FilterSection />
         </div>

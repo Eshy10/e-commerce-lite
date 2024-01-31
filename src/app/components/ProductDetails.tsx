@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { toast } from "react-toastify";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { addToCart, removeFromCart } from "@/lib/features/cart";
@@ -13,7 +13,7 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-  
+  const [isProductInCart, setIsProductInCart] = useState(false)
 
   const cart = useAppSelector((state) => state.cartReducer.cart);
   const dispatch = useAppDispatch();
@@ -28,6 +28,14 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     toast.success("Removed From Cart");
   };
 
+  useEffect(() => {
+    if (cart && cart?.length > 0) {
+      setIsProductInCart(cart.some(item => item.id === product?.id))
+    }
+  }, [cart, product?.id])
+
+
+
   return (
     <div className="w-full mt-[10rem] flex flex-col items-center">
       <Image src={product?.image} alt="hero" width={100} height={100} className="object-contain" />
@@ -36,7 +44,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         <p className="text-gray-900 mb-4 text-center">{product?.description}</p>
         <p className="text-gray-900 mb-4 text-center">{product?.price}</p>
         <div>
-          {cart && cart?.length > 0 ? (
+          {cart && isProductInCart ? (
             <div
               className={`flex items-center w-full justify-between mt-4 text-center`}
             >
