@@ -2,7 +2,9 @@ import React from 'react'
 
 const productCard = () => {
   return (
-    <div>productCard</div>
+    <div>
+        
+    </div>
   )
 }
 
