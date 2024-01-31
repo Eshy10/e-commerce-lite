@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import type { Product } from "../../types/product";
-import { products } from "../../data/products";
+import { Product } from "@/types";
+import { products } from "@/data/products";
 
 
 // Handler for /api/products
