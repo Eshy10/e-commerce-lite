@@ -18,3 +18,11 @@ export interface Product {
     rightIcon?: string;
     handleClick?: MouseEventHandler<HTMLButtonElement>;
   }
+
+  export interface CartProps {
+    id: number,
+    image: string,
+    title: string,
+    amount: number,
+    quantity: number
+}
