@@ -26,7 +26,7 @@ const ProductList = () => {
       </h2>
       <div className="w-full flex flex-col lg:flex-row justify-between">
         <Searchbar setProducts={setFilteredItems} />
-        <FilterSection />
+        <FilterSection products={filteredItems} setProducts={setFilteredItems}/>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-20">
         {filteredItems &&
