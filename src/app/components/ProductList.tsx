@@ -1,36 +1,39 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { setProducts } from "@/lib/features/products";
 import { ProductCard, Searchbar, FilterSection } from ".";
 import { Product } from "@/types";
 import { fetchData } from "@/lib/endpoint";
 
-
 const ProductList = () => {
   const products = useAppSelector((state) => state.productReducer.products);
+  const [filteredItems, setFilteredItems] = useState(products);
   const dispatch = useAppDispatch();
 
-
   useEffect(() => {
- fetchData(`https://fakestoreapi.com/products`).then(data => dispatch(setProducts(data)))
+    fetchData(`https://fakestoreapi.com/products`).then((data) => {
+      dispatch(setProducts(data));
+      setFilteredItems(data);
+    });
   }, [dispatch]);
-
 
   return (
     <div className="w-full mt-[5rem] lg:mt-[20rem]">
-      <h2 className="text-gray-900 mb-20 text-center text-[20px] font-bold">Products</h2>
+      <h2 className="text-gray-900 mb-20 text-center text-[20px] font-bold">
+        Products
+      </h2>
       <div className="w-full flex flex-col lg:flex-row justify-between">
-        <Searchbar />
+        <Searchbar setProducts={setFilteredItems} />
         <FilterSection />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-20">
-        {products &&
-          products.map((product: Product) => (
-              <ProductCard product={product} key={product?.id}/>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-20">
+        {filteredItems &&
+          filteredItems.map((product: Product) => (
+            <ProductCard product={product} key={product?.id} />
           ))}
-        </div>
+      </div>
     </div>
   );
 };

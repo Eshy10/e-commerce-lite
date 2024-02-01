@@ -22,6 +22,13 @@ const CartContainer = () => {
 
   };
 
+  const getTotal = () => {
+    return cart.reduce(
+      (accumulator, item) => accumulator + item.quantity * item.price,
+      0
+    );
+  };
+
   return (
     <div className="w-full mt-[5rem]">
       <h2 className="text-gray-900 mb-20 text-center text-[20px] font-bold">Cart</h2>
@@ -56,8 +63,9 @@ const CartContainer = () => {
           </div>
         ))
       ) : (
-        <p>No Items in your cart</p>
+        <p className="text-gray-900 text-center">No Items in your cart</p>
       )}
+        <h2 className="text-gray-900 mt-4">Total: {getTotal()}</h2>
     </div>
   );
 };

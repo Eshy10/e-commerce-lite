@@ -1,31 +1,31 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { debounce } from "lodash";
-import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { setProducts } from "@/lib/features/products";
+import { useAppSelector } from "@/lib/hooks";
 import { Product } from "@/types";
 
-const SearchBar = () => {
+interface SearchBarProps {
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+}
+
+const SearchBar = ({ setProducts }: SearchBarProps) => {
   const [serchValue, setSearchValue] = useState("");
   const products = useAppSelector((state) => state.productReducer.products);
-  const dispatch = useAppDispatch();
 
   const debouncedSearch = debounce((term: string) => {
     const filteredProduct = products.filter((product: Product) =>
       product.title.toLowerCase().includes(term.toLowerCase())
     );
-    dispatch(setProducts(filteredProduct));
+    setProducts(filteredProduct);
   }, 300);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const term = e.target.value;
-    if (term.trim() === "") {
-      return 
-    }
     setSearchValue(term);
     debouncedSearch(term);
+  
   };
 
   return (
